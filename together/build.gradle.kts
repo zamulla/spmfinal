@@ -9,12 +9,14 @@ kotlin {
     androidTarget {
         compilations.all {
             kotlinOptions {
-                jvmTarget = "11"
+                jvmTarget = "1.8"
             }
         }
     }
 
-    val xcframeworkName = "Shared"
+    jvm()
+
+    val frameworkName = "together"
     val xcf = XCFramework()
 
     listOf(
@@ -23,25 +25,24 @@ kotlin {
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = xcframeworkName
+            baseName = frameworkName
+            export(projects.database)
+            export(projects.network)
             xcf.add(this)
         }
     }
-    
+
     sourceSets {
         commonMain.dependencies {
-            // put your Multiplatform dependencies here
+            api(projects.database)
+            api(projects.network)
         }
     }
 }
 
 android {
-    namespace = "com.jetbrains.spmfinal.shared"
+    namespace = "kmp.project.spmtest.together"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
     defaultConfig {
         minSdk = libs.versions.android.minSdk.get().toInt()
     }

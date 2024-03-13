@@ -20,3 +20,6 @@ dependencyResolutionManagement {
 
 include(":composeApp")
 include(":shared")
+include(":database")
+include(":network")
+include(":together")

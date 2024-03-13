@@ -14,17 +14,14 @@ kotlin {
         }
     }
 
-    val xcframeworkName = "Shared"
-    val xcf = XCFramework()
-
     listOf(
         iosX64(),
         iosArm64(),
         iosSimulatorArm64()
     ).forEach { iosTarget ->
         iosTarget.binaries.framework {
-            baseName = xcframeworkName
-            xcf.add(this)
+            baseName = "network"
+            isStatic = true
         }
     }
     
@@ -36,7 +33,7 @@ kotlin {
 }
 
 android {
-    namespace = "com.jetbrains.spmfinal.shared"
+    namespace = "com.jetbrains.spmfinal.network"
     compileSdk = libs.versions.android.compileSdk.get().toInt()
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
